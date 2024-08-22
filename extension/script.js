@@ -1,5 +1,5 @@
-let shift = false;
-let capsLock = false;
+var shift = false;
+var capsLock = false;
 
 const row1Keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'Backspace'];
 const row2Keys = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'];
@@ -7,7 +7,14 @@ const row3Keys = ['CapsLock', 'A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'];
 const row4Keys = ['Shift', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'Space'];
 
 const keyboard = document.getElementById('keyboard');
-const inputField = document.getElementById('inputField');
+var focusedElement = null;
+document.addEventListener('focusin', function(event) {
+    focusedElement = event.target;
+    if (focusedElement.tagName === 'INPUT' || focusedElement.tagName === 'TEXTAREA') {
+        console.log('Focused element:', focusedElement);
+    }
+    renderKeyboard(focusedElement);
+});
 
 // Function to shuffle an array
 function shuffleArray(array) {
@@ -37,16 +44,20 @@ function createRow(keys, rowClassName) {
         
         row.appendChild(keyElement);
     });
+    inputField.foc
     return row;
 }
 
+var inputField = null;
 // Function to render the entire keyboard
-function renderKeyboard() {
+function renderKeyboard(elem) {
+    inputField = elem;
     keyboard.innerHTML = '';
     keyboard.appendChild(createRow(row1Keys, 'row1'));
     keyboard.appendChild(createRow(row2Keys, 'row2'));
     keyboard.appendChild(createRow(row3Keys, 'row3'));
     keyboard.appendChild(createRow(row4Keys, 'row4'));
+    inputField.focus();
 }
 
 // Function to handle key presses
@@ -73,8 +84,6 @@ function handleKeyPress(key) {
         
         inputField.value += character;
     }
-    renderKeyboard(); // Shuffle keys after each press
+    renderKeyboard(focusedElement); // Shuffle keys after each press
 }
 
-
-renderKeyboard();
