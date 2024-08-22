@@ -1,0 +1,37 @@
+{
+    "manifest_version": 3,
+    "name": "Shuffling Keyboard Extension",
+    "version": "1.0",
+    "description": "A keyboard extension that shuffles its keys on each press.",
+    "permissions": ["activeTab", "scripting", "storage"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "Open Keyboard"
+    },
+    "commands": {
+      "toggle-keyboard": {
+        "suggested_key": {
+          "default": "Ctrl+Shift+K"
+        },
+        "description": "Toggle Keyboard"
+      }
+    },
+    "host_permissions": ["<all_urls>"],
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "web_accessible_resources": [
+      {
+        "resources": ["keyboard.html", "styles.css", "script.js"],
+        "matches": ["<all_urls>"]
+      }
+    ]
+  }
+  

@@ -1,0 +1,62 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+#keyboard {
+    display: grid;
+    grid-template-areas: 
+        "row1 row1 row1 row1 row1 row1 row1 row1 row1 row1 row1 row1"
+        "row2 row2 row2 row2 row2 row2 row2 row2 row2 row2 row2"
+        "row3 row3 row3 row3 row3 row3 row3 row3 row3 row3"
+        "row4 row4 row4 row4 row4 row4 row4";
+    gap: 10px;
+    margin-bottom: 20px;
+    width: 400px;
+}
+
+.row1, .row2, .row3, .row4 {
+    display: flex;
+    justify-content: center;
+}
+
+.key {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 5px;
+    user-select: none;
+    font-size: 18px;
+    margin: 5px;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.key.special {
+    width: 60px;
+    height: 35px;
+    line-height: 35px;
+}
+
+.key.space {
+    width: 200px;
+    height: 35px;
+    line-height: 35px;
+}
+
+#inputField {
+    padding: 10px;
+    font-size: 18px;
+    width: 350px;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
